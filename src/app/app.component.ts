@@ -7,10 +7,12 @@ import { DecimalPipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatAnchor } from '@angular/material/button';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
+import { RouterOutlet, RouterLink  } from '@angular/router';
+
 
 @Component({
   standalone: true,
-  imports: [RouterModule, HdWalletMultiButtonComponent, MatAnchor, DecimalPipe],
+  imports: [RouterModule, RouterLink, RouterOutlet,HdWalletMultiButtonComponent, MatAnchor, DecimalPipe],
   selector: 'connectamind-root',
   template: `<header class="px-16 pt-24 pb-08">
       <h1 class="text-center text-5xl mb-4">My bank Connect a Mind</h1>
@@ -23,6 +25,20 @@ import { WalletStore } from '@heavy-duty/wallet-adapter';
       <div class="flex justify-center">
         <hd-wallet-multi-button></hd-wallet-multi-button>
       </div>
+    <nav>
+      <ul class="flex justify-center gap-4">
+        <li>
+          <a [routerLink]= "['']" mat-raised-button>
+            Home
+          </a>
+        </li>
+        <li>
+          <a [routerLink]= "['settings']" mat-raised-button>
+            settings
+          </a>
+        </li>
+      </ul>
+    </nav>
     </header>
     <main><router-outlet></router-outlet></main>`,
 })
