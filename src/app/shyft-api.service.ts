@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
+import { HistoryItem } from './history.item';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { map, of } from 'rxjs';
 export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _header = { 'x-api-key': 'BJyq3roxaYEsPTs2' };
-  private readonly _mint = '27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4';
+  private readonly _mint = 'So11111111111111111111111111111111111111112';
 
   getAccount(publicKey: string | undefined | null) {
     if (!publicKey) {
@@ -24,6 +25,27 @@ export class ShyftApiService {
     return this._httpClient
       .get<{
         result: { balance: number; info: { image: string } };
+      }>(url.toString(), {
+        headers: this._header,
+      })
+      .pipe(map((response) => response.result));
+  }
+  getHistory(publicKey: string | undefined | null) {
+    if (!publicKey) {
+      return of(null);
+    }
+
+    const url = new URL('https://api.shyft.to/sol/v1/wallet/transaction_history');
+
+    url.searchParams.set('network', 'mainnet-beta');
+    url.searchParams.set('wallet', publicKey);
+    url.searchParams.set('token', this._mint);
+    url.searchParams.set('tx_num', '4');
+
+
+    return this._httpClient
+      .get<{
+        result: HistoryItem[]
       }>(url.toString(), {
         headers: this._header,
       })
