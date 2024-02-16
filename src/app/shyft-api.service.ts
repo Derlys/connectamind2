@@ -9,7 +9,7 @@ import { HistoryItem } from './history.item';
 export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _header = { 'x-api-key': 'BJyq3roxaYEsPTs2' };
-  private readonly _mint = 'So11111111111111111111111111111111111111112';
+  private readonly _mint = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
 
   getAccount(publicKey: string | undefined | null) {
     if (!publicKey) {
@@ -32,20 +32,21 @@ export class ShyftApiService {
   }
   getHistory(publicKey: string | undefined | null) {
     if (!publicKey) {
-      return of(null);
+      return of([]);
     }
 
-    const url = new URL('https://api.shyft.to/sol/v1/wallet/transaction_history');
+    const url = new URL(
+      'https://api.shyft.to/sol/v1/wallet/transaction_history',
+    );
 
     url.searchParams.set('network', 'mainnet-beta');
     url.searchParams.set('wallet', publicKey);
     url.searchParams.set('token', this._mint);
     url.searchParams.set('tx_num', '4');
 
-
     return this._httpClient
       .get<{
-        result: HistoryItem[]
+        result: HistoryItem[];
       }>(url.toString(), {
         headers: this._header,
       })
