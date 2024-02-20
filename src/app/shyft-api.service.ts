@@ -11,6 +11,12 @@ export class ShyftApiService {
   private readonly _header = { 'x-api-key': 'BJyq3roxaYEsPTs2' };
   private readonly _mint = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
 
+  getEndPoint() {
+    const url = new URL('https://rpc.shyft.to');
+    url.searchParams.set('api_key', 'BJyq3roxaYEsPTs2');
+    return url.toString();
+  }
+
   getAccount(publicKey: string | undefined | null) {
     if (!publicKey) {
       return of(null);

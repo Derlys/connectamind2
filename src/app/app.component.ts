@@ -46,4 +46,11 @@ import { BalanceSectionComponent } from './sections/balance-section.component';
     </main>
   `,
 })
-export class AppComponent {}
+export class AppComponent {
+  // private readonly _ShyftApiService = inject(ShyftApiService);
+  // private readonly _connectionStore = inject(ConnectionStore);
+  //
+  // ngOnInit() {
+  //   this._connectionStore.setEndpoint(this._ShyftApiService.getEndPoint());
+  // }
+}
