@@ -4,10 +4,15 @@ import { ShyftApiService } from '../shyft-api.service';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { computedAsync } from 'ngxtension/computed-async';
+import { FormPageSendTransactionComponent } from '../pages/form-page-send-transaction.component';
 
 @Component({
   standalone: true,
-  imports: [DecimalPipe],
+  imports: [
+    DecimalPipe,
+    FormPageSendTransactionComponent,
+    FormPageSendTransactionComponent,
+  ],
   selector: 'connectamind-balance-section',
   template: `
     <div class="p-6">
@@ -29,6 +34,11 @@ import { computedAsync } from 'ngxtension/computed-async';
               {{ account()?.balance | number }}
             </p>
           </div>
+          <div>
+            <connectamind-form-page>
+              (submitForm) = "onSubmit($event)"
+            </connectamind-form-page>
+          </div>
         } @else {
           <p>Connect your wallet for view the transactions</p>
         }
@@ -45,4 +55,8 @@ export class BalanceSectionComponent {
     () => this._shyftApiService.getAccount(this._publicKey()?.toBase58()),
     { requireSync: false },
   );
+
+  onSubmit(payload: FormPageSendTransactionComponent) {
+    console.log('hello world', payload);
+  }
 }
