@@ -1,17 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { FormSectionModalComponent } from '../sections/form-section-modal.component';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
   imports: [],
   selector: 'connectamind-container-page',
-  template: `<button (click)="onOpenModal()">Open modal</button>`,
+  template: ``,
 })
-export class ContainerPageComponent {
-  private readonly _matDialog = inject(MatDialog);
-
-  onOpenModal() {
-    this._matDialog.open(FormSectionModalComponent);
-  }
-}
+export class ContainerPageComponent {}
