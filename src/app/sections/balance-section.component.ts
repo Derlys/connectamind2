@@ -31,7 +31,7 @@ import { MatAnchor } from '@angular/material/button';
               {{ account()?.balance | number }}
             </p>
           </div>
-          <div>
+          <div class="flex justify-center">
             <a mat-raised-button>
               <button (click)="onTransfer()">TRANSFER</button>
             </a>

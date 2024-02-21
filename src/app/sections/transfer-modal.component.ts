@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { TransferFormComponent } from '../pages/transfer-form.component';
 import { TransferFormPayLoad } from '../models/transfer-form-payload';
+import { createTransferInstructions } from '@heavy-duty/spl-utils';
+import { injectTransactionSender } from '@heavy-duty/wallet-adapter';
 
 @Component({
   standalone: true,
@@ -14,7 +16,24 @@ import { TransferFormPayLoad } from '../models/transfer-form-payload';
   </div>`,
 })
 export class TransferModalComponent {
+  private readonly _TransactionSender = injectTransactionSender();
   onTransfer(payload: TransferFormPayLoad) {
     console.log('hello world', payload);
+
+    this._TransactionSender
+      .send(({ publicKey }) =>
+        createTransferInstructions({
+          amount: payload.amount,
+          mintAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+          receiverAddress: payload.receiverAddress,
+          senderAddress: publicKey.toBase58(),
+          fundReceiver: true,
+        }),
+      )
+      .subscribe({
+        next: (signature) => console.log(`Signature: ${signature}`),
+        error: (error) => console.error(error),
+        complete: () => console.log('Transaction ready'),
+      });
   }
 }
