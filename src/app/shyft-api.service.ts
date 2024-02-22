@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, of } from 'rxjs';
+import { map, of, tap } from 'rxjs';
 import { HistoryItem } from './history.item';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _key = 'BJyq3roxaYEsPTs2';
   private readonly _header = { 'x-api-key': this._key };
-  private readonly _mint = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+  private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
 
   getEndPoint() {
     const url = new URL('https://rpc.shyft.to');
@@ -57,6 +57,22 @@ export class ShyftApiService {
       }>(url.toString(), {
         headers: this._header,
       })
-      .pipe(map((response) => response.result));
+      .pipe(
+        tap((response) => {
+          response.result.map((transaction) => {
+            if (transaction.type === 'token_transfer') {
+              return {
+                amount: transaction.actions[0].info.amount,
+                status: transaction.status,
+                timestamp: transaction.timestamp,
+                type: transaction.type,
+              };
+            } else {
+              return transaction;
+            }
+          });
+        }),
+        map((response) => response.result),
+      );
   }
 }
