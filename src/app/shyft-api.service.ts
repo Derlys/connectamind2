@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, of, tap } from 'rxjs';
 import { HistoryItem } from './history.item';
+import { MINT } from './constants';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _key = 'BJyq3roxaYEsPTs2';
   private readonly _header = { 'x-api-key': this._key };
-  private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
+  private readonly _mint = MINT;
 
   getEndPoint() {
     const url = new URL('https://rpc.shyft.to');
