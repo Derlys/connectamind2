@@ -1,4 +1,5 @@
 export interface TransferFormPayLoad {
-  amount: number;
   receiverAddress: string;
+  amount: number;
+  memo?: string | null;
 }

@@ -29,6 +29,7 @@ export class TransferModalComponent {
           receiverAddress: payload.receiverAddress,
           senderAddress: publicKey.toBase58(),
           fundReceiver: true,
+          memo: payload.memo ?? undefined,
         }),
       )
       .subscribe({
