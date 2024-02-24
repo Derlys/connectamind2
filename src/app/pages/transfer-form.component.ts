@@ -79,6 +79,18 @@ import { TransferFormPayLoad } from '../models/transfer-form-payload';
         <mat-hint>The amount must be greater than 0</mat-hint>
       }
     </mat-form-field>
+    <mat-form-field class="w-full mb-4">
+      <mat-label> Memo</mat-label>
+      <input
+        name="memo"
+        matInput
+        placeholder="write the memo here"
+        type="string"
+        [(ngModel)]="model.memo"
+        #memoControl="ngModel"
+      />
+      <mat-icon matSuffix>insert_comment</mat-icon>
+    </mat-form-field>
     <footer class="flex justify-center gap-4">
       <button type="submit" mat-raised-button color="primary">Submit</button>
     </footer>
@@ -86,8 +98,9 @@ import { TransferFormPayLoad } from '../models/transfer-form-payload';
 })
 export class TransferFormComponent {
   readonly model: TransferForm = {
-    amount: null,
     receiverAddress: null,
+    amount: null,
+    memo: null,
   };
   @Output() readonly submitForm = new EventEmitter<TransferFormPayLoad>();
   onSubmitForm(form: NgForm) {
@@ -101,6 +114,7 @@ export class TransferFormComponent {
       this.submitForm.emit({
         receiverAddress: this.model.receiverAddress,
         amount: this.model.amount,
+        memo: this.model.memo,
       });
     }
   }

@@ -3,6 +3,7 @@ import { TransferFormComponent } from '../pages/transfer-form.component';
 import { TransferFormPayLoad } from '../models/transfer-form-payload';
 import { createTransferInstructions } from '@heavy-duty/spl-utils';
 import { injectTransactionSender } from '@heavy-duty/wallet-adapter';
+import { MINT } from '../constants';
 
 @Component({
   standalone: true,
@@ -23,11 +24,12 @@ export class TransferModalComponent {
     this._TransactionSender
       .send(({ publicKey }) =>
         createTransferInstructions({
-          amount: payload.amount,
-          mintAddress: '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs',
+          amount: payload.amount * 10 ** 9,
+          mintAddress: MINT,
           receiverAddress: payload.receiverAddress,
           senderAddress: publicKey.toBase58(),
           fundReceiver: true,
+          memo: payload.memo ?? undefined,
         }),
       )
       .subscribe({

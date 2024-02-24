@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes),
     provideAnimationsAsync(),
-    provideWalletAdapter(),
+    provideWalletAdapter(undefined, { commitment: 'confirmed' }),
     provideHttpClient(),
     importProvidersFrom([MatDialogModule]),
   ],
