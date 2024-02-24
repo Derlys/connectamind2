@@ -1,13 +1,33 @@
 import { Component } from '@angular/core';
-import { BalanceSectionComponent } from './balance-section.component';
+import { HdWalletMultiButtonComponent } from '@heavy-duty/wallet-adapter-material';
+import { MatAnchor } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [BalanceSectionComponent],
+  imports: [HdWalletMultiButtonComponent, MatAnchor, RouterLink],
   selector: 'connectamind-hero-section',
-  template: `<section class="px-16 py-24 bg-orange-500 ">
-    <h2 class="text-center text-3xl">Home Page</h2>
-    <p class="text-center">Welcome to the home page</p>
-  </section>`,
+  template: ` <header class="px-16 pt-24 pb-08">
+    <h1 class="text-center text-5xl mb-4 text-orange-600">
+      Bank Connect a Mind
+    </h1>
+
+    <div class="flex justify-center mb-4 ">
+      <hd-wallet-multi-button></hd-wallet-multi-button>
+    </div>
+    <nav>
+      <ul class="flex justify-center gap-4 py-8">
+        <li>
+          <a [routerLink]="['']" mat-raised-button> Home </a>
+        </li>
+        <li>
+          <a [routerLink]="['settings']" mat-raised-button> settings </a>
+        </li>
+        <li>
+          <a [routerLink]="['balance']" mat-raised-button> balance </a>
+        </li>
+      </ul>
+    </nav>
+  </header>`,
 })
 export class HeroSectionComponent {}
