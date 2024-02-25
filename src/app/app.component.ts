@@ -24,10 +24,12 @@ import { HeroFeaturesComponent } from './sections/features-section.component';
   ],
   selector: 'connectamind-root',
   template: `
-    <div class="flex flex-col h-screen ">
+    <div class="flex flex-col h-full justify-between">
       <connectamind-hero-section />
-      <div class="flex-grow">
-        <router-outlet></router-outlet>
+      <div class="flex-grow  py-4 px-16 text-center  ">
+        <div class="text-3xl">
+          <router-outlet></router-outlet>
+        </div>
       </div>
       <connectamind-features-section />
     </div>
