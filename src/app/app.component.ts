@@ -6,6 +6,8 @@ import { MatAnchor } from '@angular/material/button';
 import { BalanceSectionComponent } from './sections/balance-section.component';
 import { ConnectionStore } from '@heavy-duty/wallet-adapter';
 import { ShyftApiService } from './shyft-api.service';
+import { HeroSectionComponent } from './sections/hero-section.component';
+import { HeroFeaturesComponent } from './sections/features-section.component';
 
 @Component({
   standalone: true,
@@ -17,35 +19,20 @@ import { ShyftApiService } from './shyft-api.service';
     MatAnchor,
     DecimalPipe,
     BalanceSectionComponent,
+    HeroSectionComponent,
+    HeroFeaturesComponent,
   ],
   selector: 'connectamind-root',
   template: `
-    <header class="px-16 pt-24 pb-08">
-      <h1 class="text-center text-5xl mb-4 text-orange-600">
-        Bank Connect a Mind
-      </h1>
-
-      <div class="flex justify-center mb-4 ">
-        <hd-wallet-multi-button></hd-wallet-multi-button>
+    <div class="flex flex-col h-full justify-between">
+      <connectamind-hero-section />
+      <div class="flex-grow  py-4 px-16 text-center  ">
+        <div class="text-3xl">
+          <router-outlet></router-outlet>
+        </div>
       </div>
-      <nav>
-        <ul class="flex justify-center gap-4 py-8">
-          <li>
-            <a [routerLink]="['']" mat-raised-button> Home </a>
-          </li>
-          <li>
-            <a [routerLink]="['settings']" mat-raised-button> settings </a>
-          </li>
-          <li>
-            <a [routerLink]="['balance']" mat-raised-button> balance </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-
-    <main>
-      <router-outlet />
-    </main>
+      <connectamind-features-section />
+    </div>
   `,
 })
 export class AppComponent implements OnInit {

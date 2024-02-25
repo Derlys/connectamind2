@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { HeroSectionComponent } from '../sections/hero-section.component';
-import { HeroFeaturesComponent } from '../sections/features-section.component';
 
 @Component({
   standalone: true,
-  imports: [HeroSectionComponent, HeroFeaturesComponent],
+  imports: [],
   selector: 'connectamind-home-page',
-  template: `<connectamind-hero-section />
-    <connectamind-features-section /> `,
+  template: ` <section class="px-16 py-24 bg-orange-500 ">
+    <h2 class="text-center text-3xl">Home Page</h2>
+    <p class="text-center">Welcome to the home page yyy</p>
+  </section>`,
 })
 export class HomePageComponent {}
